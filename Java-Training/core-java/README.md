@@ -1,12 +1,8 @@
 # Core Java Training Module
 
-This module contains a comprehensive collection of Java examples and exercises, carefully organized to help you master Java programming from basics to advanced concepts.
+This module provides a comprehensive collection of Java examples, exercises, and best practices for learning core Java concepts. The examples are organized by topic and progressively increase in complexity.
 
-## 🚀 Getting Started
-
-### Prerequisites
-- Java 17 or later
-- Maven 3.6.0 or later
+## 🏗️ Project Structure
 - Your favorite IDE (IntelliJ IDEA, Eclipse, or VS Code)
 
 ### Project Structure
