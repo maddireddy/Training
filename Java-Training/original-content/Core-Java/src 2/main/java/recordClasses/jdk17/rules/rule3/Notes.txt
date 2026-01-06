@@ -1,0 +1,9 @@
+The component fields of a record are implicitly final, which means their values cannot be changed after the record instance is created.
+
+public record Transaction(String id, double amount) {
+    // This won't compile - attempting to change a final field:
+    public void changeAmount(double newAmount) {
+        amount = newAmount;
+    }
+}
+The example shows that attempting to change the amount field in the Transaction record's changeAmount() method will not compile.

@@ -1,0 +1,17 @@
+
+Permitted subclasses have the following constraints:
+
+They must be accessible by the sealed class at compile time.
+
+For example, to compile Shape.java, the compiler must be able to access all of the permitted classes of Shape: Circle.java, Square.java, and Rectangle.java. In addition, because Rectangle is a sealed class, the compiler also needs access to FilledRectangle.java.
+They must directly extend the sealed class.
+
+They must have exactly one of the following modifiers to describe how it continues the sealing initiated by its superclass:
+
+final: Cannot be extended further
+
+sealed: Can only be extended by its permitted subclasses
+
+non-sealed: Can be extended by unknown subclasses; a sealed class cannot prevent its permitted subclasses from doing this
+
+For example, the permitted subclasses of Shape demonstrate each of these three modifiers: Circle is final while Rectangle is sealed and Square is non-sealed.

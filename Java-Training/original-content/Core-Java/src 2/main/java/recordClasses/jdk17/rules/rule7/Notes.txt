@@ -1,0 +1,19 @@
+Records can have static members and nested classes and can implement interfaces similar to normal classes.
+
+// Top-level or nested:
+public record Transaction(String id, double amount) {
+    // Static members:
+    private static final Logger LOGGER = LoggerFactory.getLogger(Transaction.class);
+
+    // Nested class:
+    public static record Status(String code, String description) { }
+}
+
+// Implementing Interfaces:
+public record Book(String title, String author) implements Comparable<Book> {
+    @Override
+    public int compareTo(Book other) {
+        // ... Logic for comparison
+    }
+}
+The examples illustrate declaring a static Logger, a nested Status record and implementing the Comparable interface in the Book record.

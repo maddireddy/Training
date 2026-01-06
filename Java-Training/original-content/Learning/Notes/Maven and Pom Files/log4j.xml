@@ -1,0 +1,1036 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<!-- ===================================================================== -->
+<!--                                                                       -->
+<!--  Log4j Configuration                                                  -->
+<!--                                                                       -->
+<!-- ===================================================================== -->
+
+<!-- $Id: log4j.xml,v 1.26.2.1 2004/09/19 22:18:42 starksm Exp $ -->
+
+<!--
+   | For more configuration infromation and examples see the Jakarta Log4j
+   | owebsite: http://jakarta.apache.org/log4j
+ -->
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
+
+    <!-- ================================= -->
+    <!-- Preserve messages in a local file -->
+    <!-- ================================= -->
+
+    <!-- Main log : A size based file rolling appender -->
+    <appender name="FILE" class="org.apache.log4j.RollingFileAppender">
+        <errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler"/>
+        <param name="File" value="./logs/server.log"/>
+        <param name="Append" value="true"/>
+        <param name="MaxFileSize" value="10000KB"/>
+        <param name="MaxBackupIndex" value="5"/>
+        <!-- Uncomment this if you want to use UTF-8 encoding instead of system's default encoding.
+        <param name="encoding" value="UTF-8" />
+        -->
+        <layout class="org.apache.log4j.PatternLayout">
+            <!-- The default pattern: Date Priority [Category] Message\n -->
+            <param name="ConversionPattern" value="%d %X{trackingid} %-5p [%c] %m%n"/>
+        </layout>
+    </appender>
+
+    <!-- Custom log including only WARN level entries -->
+    <appender name="WARN_LOG" class="org.apache.log4j.RollingFileAppender">
+        <errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler"/>
+        <param name="File" value="./logs/WARN.log"/>
+        <param name="Append" value="true"/>
+        <param name="MaxFileSize" value="10000KB"/>
+        <param name="MaxBackupIndex" value="5"/>
+        <param name="Threshold" value="WARN"/>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="WARN" />
+            <param name="LevelMax" value="WARN" />
+        </filter>
+        <!-- Uncomment this if you want to use UTF-8 encoding instead of system's default encoding.
+        <param name="encoding" value="UTF-8" />
+        -->
+        <layout class="org.apache.log4j.PatternLayout">
+            <!-- The default pattern: Date Priority [Category] Message\n -->
+            <param name="ConversionPattern" value="%d %X{trackingid} %-5p [%c] %m%n"/>
+        </layout>
+    </appender>
+
+    <!-- Custom log including only ERROR level entries -->
+    <appender name="ERROR_LOG" class="org.apache.log4j.RollingFileAppender">
+        <errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler"/>
+        <param name="File" value="./logs/ERROR.log"/>
+        <param name="Append" value="true"/>
+        <param name="MaxFileSize" value="10000KB"/>
+        <param name="MaxBackupIndex" value="5"/>
+        <param name="Threshold" value="ERROR"/>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="ERROR" />
+            <param name="LevelMax" value="ERROR" />
+        </filter>
+        <!-- Uncomment this if you want to use UTF-8 encoding instead of system's default encoding.
+        <param name="encoding" value="UTF-8" />
+        -->
+        <layout class="org.apache.log4j.PatternLayout">
+            <!-- The default pattern: Date Priority [Category] Message\n -->
+            <param name="ConversionPattern" value="%d %X{trackingid} %-5p [%c] %m%n"/>
+        </layout>
+    </appender>
+
+    <!-- Server log : JDBC appender template for Oracle
+
+    NOTES:
+
+    To write the server log to this format, uncomment the two appenders below and replace
+    the following placeholders with valid values:
+
+    {database.host}
+    {database.name}
+    {user}
+    {password}
+
+    You must also uncomment the reference to the ServerLogToOracleDB appender in the
+    "Root logger" (near the end of this configuration file) before the appender can be
+    used:
+    -->
+
+    <!--
+    <appender name="ServerLogToOracleDB" class="org.apache.log4j.jdbc.PingJDBCAppender">
+      <errorHandler class="org.apache.log4j.varia.PingFallbackErrorHandler">
+        <root-ref />
+        <appender-ref ref="ServerLogToOracleDBFailover"/>
+      </errorHandler>
+      <param name="URL" value="jdbc:oracle:thin:@{database.host}:1521:{database.name}"/>
+      <param name="Driver" value="oracle.jdbc.OracleDriver" />
+      <param name="User" value="{user}" />
+      <param name="Password" value="{password}" />
+      <layout class="com.pingidentity.log4j.layout.PatternLayoutForDB">
+        <param name="ConversionPattern"
+          value="declare messageClob varchar2(32767) := '%m';
+            begin INSERT INTO server_log (dtime, trackingid, loglevel, classname, partnerid, username, message)
+                  VALUES (to_date('%d{yyyy/MM/dd:HH:mm:ss}', 'yyyy/mm/dd:HH24:mi:ss'), '%X{trackingid}', '%p', '%c', '%X{connectionid}', '%X{subject}', messageClob); end;"
+        />
+      </layout>
+    </appender>
+    <appender name="ServerLogToOracleDBFailover" class="org.apache.log4j.DailyRollingFileAppender">
+      <errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler"/>
+      <param name="File" value="${pf.log.dir}/server-oracle-failover.log"/>
+      <param name="Append" value="true"/>
+      <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+      <layout class="org.apache.log4j.PatternLayout">
+        <param name="ConversionPattern" value="%d %X{trackingid} %-5p [%c] %X{connectionid} %X{subject} %m %n"/>
+      </layout>
+    </appender>
+    -->
+
+    <!-- Server log : JDBC appender template for SQLServer
+
+    NOTES:
+
+    To write the server log to this format, uncomment the two appenders below and replace
+    the following placeholders with valid values:
+
+    {database.host}
+    {database.name}
+    {user}
+    {password}
+
+    You must also uncomment the reference to the ServerLogToSQLServerDB appender in the
+    "Root logger" (near the end of this configuration file) before the appender can be
+    used:
+    -->
+    <!--
+    <appender name="ServerLogToSQLServerDB" class="org.apache.log4j.jdbc.PingJDBCAppender">
+        <errorHandler class="org.apache.log4j.varia.PingFallbackErrorHandler">
+             <root-ref />
+            <appender-ref ref="ServerLogToSQLServerDBFailover"/>
+        </errorHandler>
+        <param name="URL" value="jdbc:sqlserver://{database.host}:1433;DatabaseName={database.name}"/>
+        <param name="Driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+        <param name="User" value="{user}" />
+        <param name="Password" value="{password}" />
+        <layout class="com.pingidentity.log4j.layout.PatternLayoutForDB">
+            <param name="ConversionPattern"
+               value="INSERT INTO server_log
+               (dtime, trackingid, loglevel, classname, partnerid, username, message)
+               VALUES ('%d{yyyy-MM-dd HH:mm:ss}', '%X{trackingid}', '%p', '%c', '%X{connectionid}', '%X{subject}', '%m')"
+            />
+        </layout>
+    </appender>
+    <appender name="ServerLogToSQLServerDBFailover" class="org.apache.log4j.DailyRollingFileAppender">
+      <errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler"/>
+      <param name="File" value="${pf.log.dir}/server-sqlserver-failover.log"/>
+      <param name="Append" value="true"/>
+      <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+      <layout class="org.apache.log4j.PatternLayout">
+        <param name="ConversionPattern" value="%d %X{trackingid} %-5p [%c] %X{connectionid} %X{subject} %m %n"/>
+      </layout>
+    </appender>
+    -->
+
+    <!-- Server log : JDBC appender template for MySQL
+
+    NOTES:
+
+    To write the server log to this format, uncomment the two appenders below and replace
+    the following placeholders with valid values:
+
+    {database.host}
+    {database.name}
+    {user}
+    {password}
+
+    You must also uncomment the reference to the ServerLogToMySQLDB appender in the
+    "Root logger" (near the end of this configuration file) before the appender can be
+    used:
+    -->
+    <!--
+    <appender name="ServerLogToMySQLDB" class="org.apache.log4j.jdbc.PingJDBCAppender">
+        <errorHandler class="org.apache.log4j.varia.PingFallbackErrorHandler">
+             <root-ref />
+            <appender-ref ref="ServerLogToMySQLDBFailover"/>
+        </errorHandler>
+        <param name="URL" value="jdbc:mysql://{database.host}:3306/{database.name}"/>
+        <param name="Driver" value="com.mysql.jdbc.Driver" />
+        <param name="User" value="{user}" />
+        <param name="Password" value="{password}" />
+        <layout class="com.pingidentity.log4j.layout.PatternLayoutForDBMySQL">
+            <param name="ConversionPattern"
+               value="INSERT INTO server_log
+               (dtime, trackingid, loglevel, classname, partnerid, username, message)
+               VALUES ('%d{yyyy-MM-dd HH:mm:ss}', '%X{trackingid}', '%p', '%c', '%X{connectionid}', '%X{subject}', '%m')"
+            />
+        </layout>
+    </appender>
+    <appender name="ServerLogToMySQLDBFailover" class="org.apache.log4j.DailyRollingFileAppender">
+      <errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler"/>
+      <param name="File" value="${pf.log.dir}/server-mysql-failover.log"/>
+      <param name="Append" value="true"/>
+      <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+      <layout class="org.apache.log4j.PatternLayout">
+        <param name="ConversionPattern" value="%d %X{trackingid} %-5p [%c] %X{connectionid} %X{subject} %m %n"/>
+      </layout>
+    </appender>
+    -->
+
+    <!-- Provisioner log : JDBC appender template for Oracle
+
+    NOTES:
+
+    To write the provisioner log to this format, uncomment the two appenders below and replace
+    the following placeholders with valid values:
+
+    {database.host}
+    {database.name}
+    {user}
+    {password}
+
+    You must also uncomment the reference to the ProvisionerLogToOracleDB appender in the
+    "com.pingidentity.provisioner" category (near the end of this configuration file) before the appender can be
+    used:
+    -->
+    <!--
+    <appender name="ProvisionerLogToOracleDB" class="org.apache.log4j.jdbc.PingJDBCAppender">
+        <errorHandler class="org.apache.log4j.varia.PingFallbackErrorHandler">
+             <logger-ref ref="com.pingidentity.provisioner" />
+            <appender-ref ref="ProvisionerLogToOracleDBFailover"/>
+        </errorHandler>
+        <param name="URL" value="jdbc:oracle:thin:@{database.host}:1521:{database.name}"/>
+        <param name="Driver" value="oracle.jdbc.OracleDriver" />
+        <param name="User" value="{user}" />
+        <param name="Password" value="{password}" />
+        <layout class="com.pingidentity.log4j.layout.PatternLayoutForDB">
+            <param name="ConversionPattern"
+               value="declare messageClob varchar2(32767) := '%m';
+                      begin INSERT INTO provisioner_log (dtime, loglevel, classname, message, channelcode)
+                            VALUES (to_date('%d{yyyy/MM/dd:HH:mm:ss}', 'yyyy/mm/dd:HH24:mi:ss'), '%p', '%c', messageClob, '%X{ChannelCode}'); end;"
+            />
+        </layout>
+    </appender>
+    <appender name="ProvisionerLogToOracleDBFailover" class="org.apache.log4j.DailyRollingFileAppender">
+      <errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler"/>
+      <param name="File" value="${pf.log.dir}/provisioner-oracle-failover.log"/>
+      <param name="Append" value="true"/>
+      <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+      <layout class="org.apache.log4j.PatternLayout">
+        <param name="ConversionPattern" value="%d{ABSOLUTE} %-5p [%c{1}] %m %x %X{ChannelCode}%n"/>
+      </layout>
+    </appender>
+    -->
+
+    <!-- Provisioner log : JDBC appender template for SQLServer
+
+    NOTES:
+
+    To write the provisioner log to this format, uncomment the two appenders below and replace
+    the following placeholders with valid values:
+
+    {database.host}
+    {database.name}
+    {user}
+    {password}
+
+    You must also uncomment the reference to the ProvisionerLogToSQLServerDB appender in the
+    "com.pingidentity.provisioner" category (near the end of this configuration file) before the appender can be
+    used:
+    -->
+    <!--
+    <appender name="ProvisionerLogToSQLServerDB" class="org.apache.log4j.jdbc.PingJDBCAppender">
+        <errorHandler class="org.apache.log4j.varia.PingFallbackErrorHandler">
+             <logger-ref ref="com.pingidentity.provisioner" />
+            <appender-ref ref="ProvisionerLogToSQLServerDBFailover"/>
+        </errorHandler>
+        <param name="URL" value="jdbc:sqlserver://{database.host}:1433;DatabaseName={database.name}"/>
+        <param name="Driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+        <param name="User" value="{user}" />
+        <param name="Password" value="{password}" />
+        <layout class="com.pingidentity.log4j.layout.PatternLayoutForDB">
+            <param name="ConversionPattern"
+               value="INSERT INTO provisioner_log
+               (dtime, loglevel, classname, message, channelcode)
+               VALUES ('%d{yyyy-MM-dd HH:mm:ss}', '%p', '%c', '%m', '%X{ChannelCode}')"
+            />
+        </layout>
+    </appender>
+    <appender name="ProvisionerLogToSQLServerDBFailover" class="org.apache.log4j.DailyRollingFileAppender">
+      <errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler"/>
+      <param name="File" value="${pf.log.dir}/provisioner-sqlserver-failover.log"/>
+      <param name="Append" value="true"/>
+      <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+      <layout class="org.apache.log4j.PatternLayout">
+        <param name="ConversionPattern" value="%d{ABSOLUTE} %-5p [%c{1}] %m %x %X{ChannelCode}%n"/>
+      </layout>
+    </appender>
+    -->
+
+    <!-- Provisioner log : JDBC appender template for MySQL
+
+    NOTES:
+
+    To write the provisioner log to this format, uncomment the two appenders below and replace
+    the following placeholders with valid values:
+
+    {database.host}
+    {database.name}
+    {user}
+    {password}
+
+    You must also uncomment the reference to the ProvisionerLogToMySQLDB appender in the
+    "com.pingidentity.provisioner" category (near the end of this configuration file) before the appender can be
+    used:
+    -->
+    <!--
+    <appender name="ProvisionerLogToMySQLDB" class="org.apache.log4j.jdbc.PingJDBCAppender">
+        <errorHandler class="org.apache.log4j.varia.PingFallbackErrorHandler">
+             <logger-ref ref="com.pingidentity.provisioner" />
+            <appender-ref ref="ProvisionerLogToMySQLDBFailover"/>
+        </errorHandler>
+        <param name="URL" value="jdbc:mysql://{database.host}:3306/{database.name}"/>
+        <param name="Driver" value="com.mysql.jdbc.Driver" />
+        <param name="User" value="{user}" />
+        <param name="Password" value="{password}" />
+        <layout class="com.pingidentity.log4j.layout.PatternLayoutForDBMySQL">
+            <param name="ConversionPattern"
+               value="INSERT INTO provisioner_log
+               (dtime, loglevel, classname, message, channelcode)
+               VALUES ('%d{yyyy-MM-dd HH:mm:ss}', '%p', '%c', '%m', '%X{ChannelCode}')"
+            />
+        </layout>
+    </appender>
+    <appender name="ProvisionerLogToMySQLDBFailover" class="org.apache.log4j.DailyRollingFileAppender">
+      <errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler"/>
+      <param name="File" value="${pf.log.dir}/provisioner-mysql-failover.log"/>
+      <param name="Append" value="true"/>
+      <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+      <layout class="org.apache.log4j.PatternLayout">
+        <param name="ConversionPattern" value="%d{ABSOLUTE} %-5p [%c{1}] %m %x %X{ChannelCode}%n"/>
+      </layout>
+    </appender>
+    -->
+
+    <!-- SAML Transaction log : A time/date based rolling appender -->
+    <appender name="SamlTransaction" class="org.apache.log4j.DailyRollingFileAppender">
+        <errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler"/>
+        <param name="File" value="./logs/transaction.log"/>
+        <param name="Append" value="true"/>
+        <!-- Rollover at midnight each day -->
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <!-- Uncomment this if you want to use UTF-8 encoding instead of system's default encoding.
+        <param name="encoding" value="UTF-8" />
+        -->
+        <layout class="org.apache.log4j.PatternLayout">
+            <!-- The pattern: Date Message\n -->
+            <param name="ConversionPattern" value="%d %m%n"/>
+        </layout>
+    </appender>
+
+    <!-- Security Audit log for Splunk: A time/date based rolling appender -->
+    <appender name="SecurityAudit2Splunk" class="org.apache.log4j.DailyRollingFileAppender">
+        <errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler"/>
+        <param name="File" value="./logs/splunk-audit.log"/>
+        <param name="Append" value="true"/>
+        <!-- Rollover at midnight each day -->
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <!-- Uncomment this if you want to use UTF-8 encoding instead of system's default encoding.
+        <param name="encoding" value="UTF-8" />
+        -->
+        <layout class="org.apache.log4j.PatternLayout">
+            <!-- Available fields for ConversionPattern:
+                 Refer to the available fields in the SecurityAudit2File appender.
+            -->
+            <param name="ConversionPattern" value="%d event=%X{event} subject=&quot;%X{subject}&quot; ip=%X{ip} app=%X{app} connectionid=%X{connectionid} protocol=%X{protocol} pfhost=%X{host} role=%X{role} status=%X{status} adapterid=%X{adapterid} description=&quot;%X{description}&quot; responsetime=%X{responsetime} %n"/>
+        </layout>
+    </appender>
+
+
+    <!-- Security Audit log : A time/date based rolling appender -->
+    <appender name="SecurityAudit2File" class="org.apache.log4j.DailyRollingFileAppender">
+        <errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler"/>
+        <param name="File" value="./logs/audit.log"/>
+        <param name="Append" value="true"/>
+        <!-- Rollover at midnight each day -->
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <!-- Uncomment this if you want to use UTF-8 encoding instead of system's default encoding.
+        <param name="encoding" value="UTF-8" />
+        -->
+        <layout class="org.apache.log4j.PatternLayout">
+            <!-- Available fields for ConversionPattern:
+                 %d - transaction time
+                 %X{event} - event
+                 %X{subject} - user name
+                 %X{ip} - client source IP
+                 %X{app} - target application URL
+                 %X{connectionid} - partner Id
+                 %X{protocol} - protocol (e.g. SAML20)
+                 %X{host} - host
+                 %X{role} - role (IdP, SP)
+                 %X{status}
+                 %X{localuserid} - SP local user id (available only when account linking is used)
+                 %X{attributes} - a list of all attributes
+                 %X{trackingid} - tracking id which is unique for a user session. It is used for debugging purposes in the server log
+                 %X{pfversion} - PingFederate version
+                 %X{adapterid} - adapter instance id
+                 %X{description} - description of failure
+
+                 %X{assertionid} - ID from Assertion
+                 %X{initiator} - Who initiated the SAML transaction (e.g.: SP)
+                 %X{inmessagetype} - high level (protocol) message type
+                 %X{inresponseto} - the InResponseTo attribute from the Response
+                 %X{inxmlmsg} - the incoming XML message
+                 %X{outxmlmsg} - the produced, outgoing XML message
+                 %X{requestid} - ID of the original request
+                 %X{responseid} - ID of the response
+
+                 %X{granttype} - OAuth grant type(s)
+                 %X{validatorid} - ID of the Password Credentials Validator used
+
+                 %X{stspluginid} - ID of the Token Processor / Token Generator used (STS only)
+
+                 %X{requeststarttime} - start time of the request (milliseconds since midnight, January 1, 1970 UTC).
+                 %X{responsetime} - time to process the request, in milliseconds
+            -->
+            <param name="ConversionPattern" value="%d|%X{event}| %X{subject}| %X{ip} | %X{app}| %X{connectionid}| %X{protocol}| %X{host}| %X{role}| %X{status}| %X{adapterid}| %X{description}| %X{responsetime} %n"/>
+        </layout>
+    </appender>
+
+    <!-- Security Audit log : CEF Formatted syslog appender
+
+    NOTES:
+
+    To write the audit log to this format, uncomment the two appenders below and replace
+    the following placeholder in the XML SyslogHost parameter with the URL
+    of your syslog host server:
+
+    {syslog.host}
+
+    You must also uncomment the reference to this appender in one or more of the following loggers
+    (under "Limit categories," below) before it can be used:
+
+    org.sourceid.websso.profiles.sp.SpAuditLogger (when PingFederate is acting as a Service Provider)
+    org.sourceid.websso.profiles.idp.IdpAuditLogger (when PingFederate is acting as an Identity Provider)
+    org.sourceid.wstrust.log.STSAuditLogger (when PingFederate is acting as a Security Token Service)
+    org.sourceid.websso.profiles.idp.AsAuditLogger (when PingFederate is acting as an OAuth Authorization Server)
+    -->
+
+    <!--
+    <appender name="SecurityAuditToCEFSyslog" class="org.apache.log4j.net.SyslogAppender">
+      <errorHandler class="org.apache.log4j.varia.PingFallbackErrorHandler">
+         <logger-ref ref="org.sourceid.websso.profiles.idp.IdpAuditLogger" />
+        <logger-ref ref="org.sourceid.websso.profiles.sp.SpAuditLogger" />
+         <appender-ref ref="SecurityAuditToCEFSyslogFailover"/>
+      </errorHandler>
+      <param name="SyslogHost" value="{syslog.host}"/>
+      <layout class="com.pingidentity.log4j.layout.PatternLayoutForCEF">
+         <param name="ConversionPattern" value="CEF:0|Ping Identity|PingFederate|%X{pfversion}|%X{event}|%X{event}|0|rt=%d{MMM dd yyyy HH:mm:ss.SSS} duid=%X{subject} src=%X{ip} msg=%X{status} cs1Label=Target Application URL cs1=%X{app} cs2Label=Connection ID cs2=%X{connectionid} cs3Label=Protocol cs3=%X{protocol} dvchost=%X{host} cs4Label=Role cs4=%X{role} externalId=%X{trackingid} cs5Label=SP Local User ID cs5=%X{localuserid} cs6Label=Attributes cs6=%X{attributes} %n"/>
+      </layout>
+    </appender>
+    <appender name="SecurityAuditToCEFSyslogFailover" class="org.apache.log4j.DailyRollingFileAppender">
+        <errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler"/>
+        <param name="File" value="${pf.log.dir}/audit-cef-syslog-failover.log"/>
+        <param name="Append" value="true"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <layout class="com.pingidentity.log4j.layout.PatternLayoutForCEF">
+             <param name="ConversionPattern" value="CEF:0|Ping Identity|PingFederate|%X{pfversion}|%X{event}|%X{event}|0|rt=%d{MMM dd yyyy HH:mm:ss.SSS} duid=%X{subject} src=%X{ip} msg=%X{status} cs1Label=Target Application URL cs1=%X{app} cs2Label=Connection ID cs2=%X{connectionid} cs3Label=Protocol cs3=%X{protocol} dvchost=%X{host} cs4Label=Role cs4=%X{role} externalId=%X{trackingid} cs5Label=SP Local User ID cs5=%X{localuserid} cs6Label=Attributes cs6=%X{attributes} %n"/>
+        </layout>
+    </appender>
+    -->
+
+    <!-- Security Audit log : CEF Formatted file appender
+
+    NOTES:
+
+    To write the audit log to this format, uncomment the appender below.
+
+    You must also uncomment the reference to this appender in one or more of the following loggers
+    (under "Limit categories," below) before it can be used:
+
+    org.sourceid.websso.profiles.sp.SpAuditLogger (when PingFederate is acting as a Service Provider)
+    org.sourceid.websso.profiles.idp.IdpAuditLogger (when PingFederate is acting as an Identity Provider)
+    org.sourceid.wstrust.log.STSAuditLogger (when PingFederate is acting as a Security Token Service)
+    org.sourceid.websso.profiles.idp.AsAuditLogger (when PingFederate is acting as an OAuth Authorization Server)
+    -->
+
+    <!--
+    <appender name="SecurityAuditToCEFFile" class="org.apache.log4j.DailyRollingFileAppender">
+        <errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler"/>
+        <param name="File" value="${pf.log.dir}/audit-cef.log"/>
+        <param name="Append" value="true"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <layout class="com.pingidentity.log4j.layout.PatternLayoutForCEF">
+             <param name="ConversionPattern" value="CEF:0|Ping Identity|PingFederate|%X{pfversion}|%X{event}|%X{event}|0|rt=%d{MMM dd yyyy HH:mm:ss.SSS} duid=%X{subject} src=%X{ip} msg=%X{status} cs1Label=Target Application URL cs1=%X{app} cs2Label=Connection ID cs2=%X{connectionid} cs3Label=Protocol cs3=%X{protocol} dvchost=%X{host} cs4Label=Role cs4=%X{role} externalId=%X{trackingid} cs5Label=SP Local User ID cs5=%X{localuserid} cs6Label=Attributes cs6=%X{attributes} %n"/>
+        </layout>
+    </appender>
+    -->
+
+    <!-- Security Audit log : JDBC appender template for Oracle
+
+    NOTES:
+
+    To write the audit log to this format, uncomment the two appenders below and replace
+    the following placeholders with valid values:
+
+    {database.host}
+    {database.name}
+    {user}
+    {password}
+
+    You must also uncomment the reference to this appender in one or more of the following loggers
+    (under "Limit categories," below) before it can be used:
+
+    org.sourceid.websso.profiles.sp.SpAuditLogger (when PingFederate is acting as a Service Provider)
+    org.sourceid.websso.profiles.idp.IdpAuditLogger (when PingFederate is acting as an Identity Provider)
+    org.sourceid.wstrust.log.STSAuditLogger (when PingFederate is acting as a Security Token Service)
+    org.sourceid.websso.profiles.idp.AsAuditLogger (when PingFederate is acting as an OAuth Authorization Server)
+    -->
+
+    <!--
+    <appender name="SecurityAuditToOracleDB" class="org.apache.log4j.jdbc.PingJDBCAppender">
+        <errorHandler class="org.apache.log4j.varia.PingFallbackErrorHandler">
+             <logger-ref ref="org.sourceid.websso.profiles.idp.IdpAuditLogger" />
+            <logger-ref ref="org.sourceid.websso.profiles.sp.SpAuditLogger" />
+            <appender-ref ref="SecurityAuditToOracleDBFailover"/>
+        </errorHandler>
+        <param name="URL" value="jdbc:oracle:thin:@{database.host}:1521:{database.name}"/>
+        <param name="Driver" value="oracle.jdbc.OracleDriver" />
+        <param name="User" value="{user}" />
+        <param name="Password" value="{password}" />
+        <layout class="com.pingidentity.log4j.layout.PatternLayoutForDB">
+            <param name="ConversionPattern"
+               value="INSERT INTO audit_log
+               (dtime, event, username, ip, app, host, protocol, role, partnerid, status, adapterid, description, responsetime)
+               VALUES ( to_date('%d{yyyy/MM/dd:HH:mm:ss}', 'yyyy/mm/dd:HH24:mi:ss'),'%X{event}',
+                   '%X{subject}', '%X{ip}', '%X{app}', '%X{host}', '%X{protocol}', '%X{role}',
+                   '%X{connectionid}', '%X{status}', '%X{adapterid}', '%X{description}', %X{responsetime} )"
+            />
+        </layout>
+    </appender>
+    <appender name="SecurityAuditToOracleDBFailover" class="org.apache.log4j.DailyRollingFileAppender">
+      <errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler"/>
+      <param name="File" value="${pf.log.dir}/audit-oracle-failover.log"/>
+      <param name="Append" value="true"/>
+      <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+      <layout class="org.apache.log4j.PatternLayout">
+        <param name="ConversionPattern" value="%d| %X{event}| %X{subject}| %X{ip} | %X{app}| %X{connectionid}| %X{protocol}| %X{host}| %X{role}| %X{status}| %X{adapterid}| %X{description}| %X{responsetime} %n"/>
+      </layout>
+    </appender>
+    -->
+
+    <!-- Security Audit log : JDBC appender template for SQLServer
+
+    NOTES:
+
+    To write the audit log to this format, uncomment the two appenders below and replace
+    the following placeholders with valid values:
+
+    {database.host}
+    {database.name}
+    {user}
+    {password}
+
+    You must also uncomment the reference to this appender in one or more of the following loggers
+    (under "Limit categories," below) before it can be used:
+
+    org.sourceid.websso.profiles.sp.SpAuditLogger (when PingFederate is acting as a Service Provider)
+    org.sourceid.websso.profiles.idp.IdpAuditLogger (when PingFederate is acting as an Identity Provider)
+    org.sourceid.wstrust.log.STSAuditLogger (when PingFederate is acting as a Security Token Service)
+    org.sourceid.websso.profiles.idp.AsAuditLogger (when PingFederate is acting as an OAuth Authorization Server)
+    -->
+
+    <!--
+    <appender name="SecurityAuditToSQLServerDB" class="org.apache.log4j.jdbc.PingJDBCAppender">
+        <errorHandler class="org.apache.log4j.varia.PingFallbackErrorHandler">
+            <logger-ref ref="org.sourceid.websso.profiles.idp.IdpAuditLogger" />
+            <logger-ref ref="org.sourceid.websso.profiles.sp.SpAuditLogger" />
+            <appender-ref ref="SecurityAuditToSQLServerDBFailover"/>
+        </errorHandler>
+        <param name="URL" value="jdbc:sqlserver://{database.host}:1433;DatabaseName={database.name}"/>
+        <param name="Driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+        <param name="User" value="{user}" />
+        <param name="Password" value="{password}" />
+        <layout class="com.pingidentity.log4j.layout.PatternLayoutForDB">
+            <param name="ConversionPattern"
+               value="INSERT INTO audit_log
+               (dtime, event, username, ip, app, host, protocol, role, partnerid, status, adapterid, description, responsetime)
+               VALUES ('%d{yyyy-MM-dd HH:mm:ss}','%X{event}',
+           '%X{subject}', '%X{ip}', '%X{app}', '%X{host}', '%X{protocol}', '%X{role}',
+           '%X{connectionid}', '%X{status}', '%X{adapterid}', '%X{description}', %X{responsetime} )"
+         />
+        </layout>
+       </appender>
+    <appender name="SecurityAuditToSQLServerDBFailover" class="org.apache.log4j.DailyRollingFileAppender">
+      <errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler"/>
+      <param name="File" value="${pf.log.dir}/audit-sql-server-failover.log"/>
+      <param name="Append" value="true"/>
+      <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+      <layout class="org.apache.log4j.PatternLayout">
+        <param name="ConversionPattern" value="%d| %X{event}| %X{subject}| %X{ip} | %X{app}| %X{connectionid}| %X{protocol}| %X{host}| %X{role}| %X{status}| %X{adapterid}| %X{description}| %X{responsetime} %n"/>
+      </layout>
+    </appender>
+    -->
+
+    <!-- Security Audit log : JDBC appender template for MySQL
+
+    NOTES:
+
+    To write the audit log to this format, uncomment the two appenders below and replace
+    the following placeholders with valid values:
+
+    {database.host}
+    {database.name}
+    {user}
+    {password}
+
+    You must also uncomment the reference to this appender in one or more of the following loggers
+    (under "Limit categories," below) before it can be used:
+
+    org.sourceid.websso.profiles.sp.SpAuditLogger (when PingFederate is acting as a Service Provider)
+    org.sourceid.websso.profiles.idp.IdpAuditLogger (when PingFederate is acting as an Identity Provider)
+    org.sourceid.wstrust.log.STSAuditLogger (when PingFederate is acting as a Security Token Service)
+    org.sourceid.websso.profiles.idp.AsAuditLogger (when PingFederate is acting as an OAuth Authorization Server)
+    -->
+
+    <!--
+    <appender name="SecurityAuditToMySQLDB" class="org.apache.log4j.jdbc.PingJDBCAppender">
+        <errorHandler class="org.apache.log4j.varia.PingFallbackErrorHandler">
+            <logger-ref ref="org.sourceid.websso.profiles.idp.IdpAuditLogger" />
+            <logger-ref ref="org.sourceid.websso.profiles.sp.SpAuditLogger" />
+            <appender-ref ref="SecurityAuditToMySQLDBFailover"/>
+        </errorHandler>
+        <param name="URL" value="jdbc:mysql://{database.host}:3306/{database.name}"/>
+        <param name="Driver" value="com.mysql.jdbc.Driver" />
+        <param name="User" value="{user}" />
+        <param name="Password" value="{password}" />
+        <layout class="com.pingidentity.log4j.layout.PatternLayoutForDB">
+            <param name="ConversionPattern"
+               value="INSERT INTO audit_log
+               (dtime, event, username, ip, app, host, protocol, role, partnerid, status, adapterid, description, responsetime)
+               VALUES ( '%d{yyyy-MM-dd HH:mm:ss}','%X{event}', '%X{subject}', '%X{ip}',
+               '%X{app}', '%X{host}', '%X{protocol}', '%X{role}', '%X{connectionid}', '%X{status}', '%X{adapterid}', '%X{description}', %X{responsetime} )"
+            />
+        </layout>
+    </appender>
+    <appender name="SecurityAuditToMySQLDBFailover" class="org.apache.log4j.DailyRollingFileAppender">
+      <errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler"/>
+      <param name="File" value="${pf.log.dir}/audit-mysql-failover.log"/>
+      <param name="Append" value="true"/>
+      <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+      <layout class="org.apache.log4j.PatternLayout">
+        <param name="ConversionPattern" value="%d| %X{event}| %X{subject}| %X{ip} | %X{app}| %X{connectionid}| %X{protocol}| %X{host}| %X{role}| %X{status}| %X{adapterid}| %X{description}| %X{responsetime} %n"/>
+      </layout>
+    </appender>
+    -->
+
+    <!-- Admin Audit log : A time/date based rolling appender -->
+    <appender name="AdminAudit" class="org.apache.log4j.DailyRollingFileAppender">
+        <errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler"/>
+        <param name="File" value="./logs/admin.log"/>
+        <param name="Append" value="true"/>
+        <!-- Rollover at midnight each day -->
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <!-- The default pattern: Date Priority [Category] Message\n -->
+            <param name="ConversionPattern" value="%d %X{user}| %X{roles} | %X{event}| %m%n"/>
+        </layout>
+    </appender>
+
+    <!-- Provisioner log : A time/date based rolling appender -->
+    <appender name="ProvisionerLog" class="org.apache.log4j.DailyRollingFileAppender">
+        <errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler"/>
+        <param name="File" value="./logs/provisioner.log"/>
+        <param name="Append" value="true"/>
+        <!-- Rollover at midnight each day -->
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <!-- The pattern: Date Message\n -->
+            <param name="ConversionPattern" value="%d{ABSOLUTE} %-5p [%c{1}] %m %x %X{ChannelCode}%n"/>
+        </layout>
+    </appender>
+
+
+    <!-- ============================== -->
+    <!-- Append messages to the console -->
+    <!-- ============================== -->
+
+    <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+        <errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler"/>
+        <param name="Target" value="System.out"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <!-- The default pattern: Date Priority [Category] Message\n -->
+            <param name="ConversionPattern" value="%d{ABSOLUTE} %-5p [%c{1}] %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="CONSOLE-PROVISIONER" class="org.apache.log4j.ConsoleAppender">
+        <errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler"/>
+        <param name="Target" value="System.out"/>
+
+        <layout class="org.apache.log4j.PatternLayout">
+            <!-- The default pattern: Date Priority [Category] Message\n -->
+            <param name="ConversionPattern" value="%d{ABSOLUTE} %-5p [%c{1}] %m %x %X{ChannelCode}%n"/>
+        </layout>
+    </appender>
+
+    <!-- ====================== -->
+    <!-- More Appender examples -->
+    <!-- ====================== -->
+
+    <!-- Buffer events and log them asynchronously
+    <appender name="ASYNC" class="org.apache.log4j.AsyncAppender">
+      <errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler"/>
+      <appender-ref ref="FILE"/>
+      <appender-ref ref="CONSOLE"/>
+      <appender-ref ref="SMTP"/>
+    </appender>
+    -->
+
+    <!-- EMail events to an administrator
+    <appender name="SMTP" class="org.apache.log4j.net.SMTPAppender">
+      <errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler"/>
+      <param name="Threshold" value="ERROR"/>
+      <param name="To" value="admin@myhost.domain.com"/>
+      <param name="From" value="nobody@myhost.domain.com"/>
+      <param name="Subject" value="PingFederate Server Errors"/>
+      <param name="SMTPHost" value="localhost"/>
+      <param name="BufferSize" value="10"/>
+      <layout class="org.apache.log4j.PatternLayout">
+        <param name="ConversionPattern" value="[%d{ABSOLUTE},%c{1}] %m%n"/>
+      </layout>
+    </appender>
+    -->
+
+    <!-- Syslog events
+    <appender name="SYSLOG" class="org.apache.log4j.net.SyslogAppender">
+      <errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler"/>
+      <param name="Facility" value="LOCAL7"/>
+      <param name="FacilityPrinting" value="true"/>
+      <param name="SyslogHost" value="localhost"/>
+      <layout class="org.apache.log4j.PatternLayout">
+         <param name="ConversionPattern" value="[%d{ABSOLUTE},%c{1}] %m%n"/>
+      </layout>
+    </appender>
+    -->
+
+    <!-- Log events to JMS (requires a topic to be created)
+    <appender name="JMS" class="org.apache.log4j.net.JMSAppender">
+      <errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler"/>
+      <param name="Threshold" value="ERROR"/>
+      <param name="TopicConnectionFactoryBindingName" value="java:/ConnectionFactory"/>
+      <param name="TopicBindingName" value="topic/MyErrorsTopic"/>
+    </appender>
+    -->
+
+    <!-- Log events through SNMP
+    <appender name="TRAP_LOG" class="org.apache.log4j.ext.SNMPTrapAppender">
+      <errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler"/>
+      <param name="ImplementationClassName" value="org.apache.log4j.ext.JoeSNMPTrapSender"/>
+      <param name="ManagementHost" value="127.0.0.1"/>
+      <param name="ManagementHostTrapListenPort" value="162"/>
+      <param name="EnterpriseOID" value="1.3.6.1.4.1.24.0"/>
+      <param name="LocalIPAddress" value="127.0.0.1"/>
+      <param name="LocalTrapSendPort" value="161"/>
+      <param name="GenericTrapType" value="6"/>
+      <param name="SpecificTrapType" value="12345678"/>
+      <param name="CommunityString" value="public"/>
+      <param name="ForwardStackTraceWithTrap" value="true"/>
+      <param name="Threshold" value="DEBUG"/>
+      <param name="ApplicationTrapOID" value="1.3.6.1.4.1.24.12.10.22.64"/>
+      <layout class="org.apache.log4j.PatternLayout">
+             <param name="ConversionPattern" value="%d,%p,[%t],[%c],%m%n"/>
+      </layout>
+    </appender>
+    -->
+
+    <!-- ================ -->
+    <!-- Limit categories -->
+    <!-- ================ -->
+    <category name="httpclient.wire.content">
+        <priority value="INFO"/>
+    </category>
+
+    <category name="org.sourceid">
+        <priority value="DEBUG"/>
+    </category>
+
+    <category name="com.jolbox">
+        <priority value="OFF"/>
+    </category>
+
+    <category name="com.pingidentity.crypto.CertificateServiceImpl">
+        <priority value="INFO"/>
+    </category>
+
+    <!-- Adjust the priority value to DEBUG to get additional logging to help troubleshoot XML Signature problems -->
+    <category name="org.sourceid.common.dsig">
+        <priority value="INFO"/>
+    </category>
+
+    <category name="org.sourceid.saml20.domain.mgmt.impl.PluginSupport">
+        <priority value="INFO"/>
+    </category>
+
+    <category name="com.pingidentity">
+        <priority value="DEBUG"/>
+    </category>
+
+    <logger name="org.sourceid.saml20.bindings.BindingLogProxy" additivity="false">
+        <level value="INFO" />
+        <appender-ref ref="SamlTransaction"/>
+    </logger>
+
+    <!--
+         IMPORTANT:
+
+         The following appenders cannot be configured with any others:
+
+         SecurityAuditToCEFSyslog
+         SecurityAuditToMySQLDB
+         SecurityAuditToSQLServerDB
+         SecurityAuditToOracleDB
+
+         Each must be the only appender referenced in the logger org.sourceid.websso.profiles.sp.SpAuditLogger.
+         If one of these appenders is added, remove the existing reference to "SecurityAudit2File".
+     -->
+
+    <logger name="org.sourceid.websso.profiles.sp.SpAuditLogger" additivity="false">
+        <level value="INFO" />
+        <appender-ref ref="SecurityAudit2File"/>
+        <!--
+            <appender-ref ref="SecurityAuditToSQLServerDB"/>
+            <appender-ref ref="SecurityAuditToOracleDB"/>
+            <appender-ref ref="SecurityAuditToCEFSyslog"/>
+            <appender-ref ref="SecurityAuditToCEFFile"/>
+            <appender-ref ref="SecurityAuditToMySQLDB"/>
+            <appender-ref ref="SecurityAudit2Splunk"/>
+         -->
+    </logger>
+
+    <!--
+         IMPORTANT:
+
+         The following appenders cannot be configured with any others:
+
+         ProvisionerLogToOracleDB
+         ProvisionerLogToSQLServerDB
+         ProvisionerLogToMySQLDB
+
+         Each must be the only appender referenced in the logger com.pingidentity.provisioner.
+         If one of these appenders is added, remove the existing reference to "ProvisionerLog" and "CONSOLE-PROVISIONER".
+     -->
+    <logger name="com.pingidentity.provisioner" additivity="false">
+        <level value="DEBUG"/>
+        <!--
+        <appender-ref ref="ProvisionerLogToOracleDB"/>
+        <appender-ref ref="ProvisionerLogToSQLServerDB"/>
+        <appender-ref ref="ProvisionerLogToMySQLDB"/>
+        -->
+
+        <appender-ref ref="ProvisionerLog"/>
+        <appender-ref ref="CONSOLE-PROVISIONER"/>
+    </logger>
+
+    <!--
+         IMPORTANT:
+
+         The following appenders cannot be configured with any others:
+
+         SecurityAuditToCEFSyslog
+         SecurityAuditToMySQLDB
+         SecurityAuditToSQLServerDB
+         SecurityAuditToOracleDB
+
+         Each must be the only appender referenced in the logger org.sourceid.websso.profiles.idp.IdpAuditLogger.
+         If one of these appenders is added, remove the existing reference to "SecurityAudit2File".
+     -->
+    <logger name="org.sourceid.websso.profiles.idp.IdpAuditLogger" additivity="false">
+        <level value="INFO" />
+        <appender-ref ref="SecurityAudit2File"/>
+        <!--
+            <appender-ref ref="SecurityAuditToCEFSyslog"/>
+            <appender-ref ref="SecurityAuditToCEFFile"/>
+            <appender-ref ref="SecurityAuditToMySQLDB"/>
+            <appender-ref ref="SecurityAuditToSQLServerDB"/>
+            <appender-ref ref="SecurityAuditToOracleDB"/>
+            <appender-ref ref="SecurityAudit2Splunk"/>
+         -->
+    </logger>
+
+    <!--
+         IMPORTANT:
+
+         The following appenders cannot be configured with any others:
+
+         SecurityAuditToCEFSyslog
+         SecurityAuditToMySQLDB
+         SecurityAuditToSQLServerDB
+         SecurityAuditToOracleDB
+
+         Each must be the only appender referenced in the logger org.sourceid.websso.profiles.idp.AsAuditLogger.
+         If one of these appenders is added, remove the existing reference to "SecurityAudit2File".
+     -->
+    <logger name="org.sourceid.websso.profiles.idp.AsAuditLogger" additivity="false">
+        <level value="INFO" />
+        <appender-ref ref="SecurityAudit2File"/>
+        <!--
+            <appender-ref ref="SecurityAuditToCEFSyslog"/>
+            <appender-ref ref="SecurityAuditToCEFFile"/>
+            <appender-ref ref="SecurityAuditToMySQLDB"/>
+            <appender-ref ref="SecurityAuditToSQLServerDB"/>
+            <appender-ref ref="SecurityAuditToOracleDB"/>
+            <appender-ref ref="SecurityAudit2Splunk"/>
+         -->
+    </logger>
+
+    <!--
+         IMPORTANT:
+
+         The following appenders cannot be configured with any others:
+
+         SecurityAuditToCEFSyslog
+         SecurityAuditToMySQLDB
+         SecurityAuditToSQLServerDB
+         SecurityAuditToOracleDB
+
+         Each must be the only appender referenced in the logger org.sourceid.wstrust.log.STSAuditLogger.
+         If one of these appenders is added, remove the existing reference to "SecurityAudit2File".
+     -->
+    <logger name="org.sourceid.wstrust.log.STSAuditLogger" additivity="false">
+        <level value="INFO" />
+        <appender-ref ref="SecurityAudit2File"/>
+        <!--
+            <appender-ref ref="SecurityAuditToCEFSyslog"/>
+            <appender-ref ref="SecurityAuditToCEFFile"/>
+            <appender-ref ref="SecurityAuditToMySQLDB"/>
+            <appender-ref ref="SecurityAuditToSQLServerDB"/>
+            <appender-ref ref="SecurityAuditToOracleDB"/>
+            <appender-ref ref="SecurityAudit2Splunk"/>
+         -->
+    </logger>
+
+
+    <logger name="AuditLogger" additivity="false">
+        <level value="INFO" />
+        <appender-ref ref="AdminAudit"/>
+    </logger>
+
+    <category name="com.pingidentity.appserver.jetty">
+        <priority value="INFO"/>
+    </category>
+
+    <!-- Limit the org.apache category to INFO as its DEBUG is verbose -->
+    <category name="org.apache">
+        <priority value="INFO"/>
+    </category>
+
+    <!-- Limit Jetty -->
+    <category name="org.eclipse.jetty">
+        <priority value="INFO"/>
+    </category>
+
+    <category name="org.eclipse.jetty.io.nio">
+        <priority value="ERROR"/>
+    </category>
+
+    <category name="org.eclipse.jetty.jmx.ObjectMBean">
+        <priority value="ERROR"/>
+    </category>
+
+    <category name="org.eclipse.jetty.server.session">
+        <priority value="WARN"/>
+    </category>
+
+    <category name="org.apache.hivemind">
+        <priority value="INFO"/>
+    </category>
+
+    <!-- Limit the jgroups category -->
+    <category name="org.jgroups">
+        <priority value="INFO"/>
+    </category>
+
+    <category name="com.pingidentity.jgroups.org.jgroups">
+        <priority value="WARN"/>
+    </category>
+
+    <category name="com.pingidentity.locale">
+        <priority value="INFO"/>
+    </category>
+
+    <category name="com.pingidentity.sdk.locale">
+        <priority value="INFO"/>
+    </category>
+
+    <!-- Limit apache axis to INFO as its DEBUG is even more verbose -->
+    <category name="org.apache.axis">
+        <priority value="INFO"/>
+    </category>
+
+    <!-- ======================= -->
+    <!-- Set up the Root logger   -->
+    <!-- ======================= -->
+    <!--
+         IMPORTANT:
+
+         The following appenders cannot be configured with any others:
+
+         ServerLogToOracleDB
+         ServerLogToSQLServerDB
+         ServerLogToMySQLDB
+
+         Each must be the only appender referenced in the root logger.
+         If one of these appenders is added, remove the existing references to "CONSOLE" & "FILE".
+     -->
+    <root>
+        <priority value="INFO"/>
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="WARN_LOG"/>
+        <appender-ref ref="ERROR_LOG"/>
+
+        <!--
+        <appender-ref ref="ServerLogToOracleDB"/>
+        <appender-ref ref="ServerLogToSQLServerDB"/>
+        <appender-ref ref="ServerLogToMySQLDB"/>
+        -->
+    </root>
+</log4j:configuration>

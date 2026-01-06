@@ -1,0 +1,1 @@
+Record instances can be serialized and deserialized, but the process cannot be customized using methods such as writeObject(), readObject(), etc.

@@ -1,0 +1,10 @@
+If you declare explicit members (methods or fields) in a record, their signatures must match the derived components from the record header.
+
+public record Coordinates(double latitude, double longitude) {
+    // This works, matches the auto-generated accessor
+    public double latitude() { return latitude; }
+
+    // This won't compile - type mismatch
+    public String latitude() { return Double.toString(latitude); }
+}
+In the Coordinates record example, the explicit latitude() method with a double return type is valid, but one with a String return type will not compile due to a type mismatch.

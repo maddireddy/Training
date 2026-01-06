@@ -1,0 +1,56 @@
+An array is a container with a fixed number of “cells”, each containing a value of the same type.
+
+This container has a length (capacity), size, and indexes. The capacity of an array is the quantity of “cells” the array has. And the size is the number of “cells” that contain a value. The indexes are sequential numbers of “cells”, starting from a zero.
+
+Refer : Array.jpg
+
+This array has a length of 5, which means that it can hold only up to 5 numbers.
+ And the size of this array is equal to 4 because the size means the actual number of elements inside the container.
+ Hence the size of the array has to be less or equal to its capacity. The length of an array has a fixed size, and it cant be resized.
+Items inside the array are called elements. To access each element in the array we use the indexes.
+--------------------------
+Array declaration, allocation, initialization
+--------------------------
+We declare an array in Java by specifying the type of elements that will be stored in an array followed by the pair of square brackets and its name:
+
+int[] learningArray;
+--------------------------
+The array can be declared in a slightly different way by placing the pair of curly braces after the name of the array:
+
+int learningArray[];
+
+--------------------------
+
+It is worth mentioning that the first manner is preferable.
+The memory allocation is made in the following way:
+learningArray = new int[5];
+We have to use a new keyword, specify the type of elements in the array and set the length (capacity) of an array.
+Now we can initialize the elements in our array:
+learningArray[0] = 1;
+learningArray[1] = 2;
+learningArray[2] = 3;
+learningArray[3] = 4;
+
+--------------------------
+
+We have to specify the index of an element and then assign the integer to it.
+The memory allocation and initialization can be written in one line, for example:
+int[] learningArray;
+learningArray = new int[] { 1, 2, 3, 4 };
+
+Here we don't have to set the length of the array it will be inferred from the number of elements in the curly braces. In this case, the size of the array is 4.
+
+--------------------------
+
+We can declare and allocate the array in one line:
+int[] learningArray = new int[5];
+
+--------------------------
+
+We can as well declare, allocate and initialize the array in one line statement:
+int[] learningArray = new int[] { 1, 2, 3, 4 };
+
+--------------------------
+
+We can simplify the above statement even more, by removing a new keyword, elements type, and pair of square brackets:
+int[] learningArray = { 1, 2, 3, 4 };

@@ -1,0 +1,1 @@
+Data streams handle the binary I/O of primitive data types and String values. They allow reading and writing of Java primitive data types in a machine-independent way.

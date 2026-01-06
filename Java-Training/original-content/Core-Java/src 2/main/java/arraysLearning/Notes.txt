@@ -1,0 +1,70 @@
+Access to an array’s elements:
+-----------------------------
+
+To get an element from the array we have to specify its index:
+int firstElementOfTutorialArray = tutorialArray[0];
+
+Usually, we use loops to get all elements from the array.
+Java has many different ways of looping through an array it ranges from conventional for loop to the Java 8 stream.
+
+For accessing multidimensional arrays we have to use nested loops, but again the principles are the same as was applied for simple arrays
+
+-----------------------------
+
+Things to remember about an array:
+
+-----------------------------
+
+1. Has a fixed size that can’t be changed
+2. Has to have all elements of the same type
+3. The first index of an array is zero
+
+ability to randomly access its elements with a constant time O(1) in Big O notation
+-----------------------------
+
+An array is a container object that holds a fixed number of values of a single type.
+Arrays are objects themselves, and they have attributes and methods that can be used to manipulate them.
+--------------------------------------------------------------------------------------------------
+                            Primitive Arrays vs. Object Arrays:
+--------------------------------------------------------------------------------------------------
+                                         Primitive Arrays
+--------------------------------------------------------------------------------------------------
+Arrays of primitive data types (int[], byte[], float[], etc.) do not extend from Object[].
+These arrays are still objects, but they are special objects that store primitive values directly.
+You can assign a primitive array to a variable of type Object.
+--------------------------------------------------------------------------------------------------
+                                            Object Arrays
+--------------------------------------------------------------------------------------------------
+Arrays of Object subclasses (Integer[], String[], etc.) are considered to extend Object[] due to the concept of array covariance.
+You can assign an array of a subclass (e.g., Integer[]) to an array reference of its superclass (e.g., Object[]).
+-----------------------------
+Covariance of Arrays
+-----------------------------
+Covariance means that an array T[] where T is a subtype of Object can be assigned to a variable of Object[].
+This is because each element of T[] is also of type Object.
+-----------------------------
+Key Points
+-----------------------------
+All array types, whether they contain primitives or objects, extend from Object.
+The main difference is that while Object[] can hold any object, an array of a specific object type can only hold instances of that type or its subtypes.
+An array like Integer[] can be treated as Object[] because Integer extends Object.
+An array like int[] cannot be treated as Object[] because int is not an Object but a primitive type.
+Example Code
+public class ArrayExample {
+    public static void main(String[] args) {
+        int[] primitiveArray = new int[5];
+        Integer[] objectArray = new Integer[5];
+
+        Object obj1 = primitiveArray; // Allowed, all arrays are objects
+        Object[] objArray1 = objectArray; // Allowed, Integer[] is a subtype of Object[]
+
+        // Object[] objArray2 = primitiveArray; // Not allowed, int is a primitive type
+    }
+}
+
+
+
+Conclusion
+-----------------------------
+The array is a simple yet powerful tool.
+A good understanding of an array will let you better understand more complex data structures such as a collection for example an array list or map

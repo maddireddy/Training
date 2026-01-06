@@ -1,0 +1,7 @@
+Records implicitly extend the java.lang.Record class, so you cannot extend another class or record explicitly.
+
+public record Person(String name, int age) { }
+
+// This will NOT compile:
+public record SpecialPerson extends Person(String name, int age) { }
+The example shows that attempting to create a SpecialPerson record that extends Person will not compile.

@@ -1,0 +1,7 @@
+Record classes cannot declare native methods. Native methods depend on an external state, which goes against the immutable nature of records.
+
+public record Stock(String symbol, double price) {
+     // Won't compile - native methods not allowed
+     public native void updatePrice();
+}
+The Stock record example shows that declaring a native updatePrice() method will not compile.

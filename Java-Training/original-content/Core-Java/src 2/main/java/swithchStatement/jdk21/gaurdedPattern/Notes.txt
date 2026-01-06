@@ -1,0 +1,9 @@
+Let’s take this use case.
+Inside the case label where I have checked for a “Employee” instance , I want to do an additional check.
+Thinking traditionally , you could be doing this after the case statement.
+Something like this:
+case Employee emp:
+if(emp.getDept().equals("IT")) {
+yield "This is IT Employee";
+}
+But Java 21 has introduced “Guarded Patterns” . You can do this check in the case label itself like below

@@ -1,0 +1,20 @@
+A multidimensional array is an array whose components are themselves arrays. For example the array:
+int [][] twoDimensionalArray = new int[4][5];
+
+twoDimensionalArray[0]= new int[] { 1, 2, 3, 4, 5 };
+twoDimensionalArray[1]= new int[] { 1, 2, 3, 4, 5 };
+twoDimensionalArray[2]= new int[] { 1, 2, 3, 4, 5 };
+
+-----------------------
+
+When we create the multidimensional array we have to specify the length (capacity) for each dimension, using square brackets.
+The same principles as for single arrays are applied when creating and initializing multidimensional arrays:
+int[][] oneLineDeclAllocArrayInitArray = new int[][] {
+        { 1, 2, 3, 4, 5 },
+        { 1, 2, 3, 4, 5 },
+        { 1, 2, 3, 4, 5 } };
+
+int[][] simplifiedOneLineDeclAllocArrayInitArray = {
+        { 1, 2, 3, 4, 5 },
+        { 1, 2, 3, 4, 5 },
+        { 1, 2, 3, 4, 5 } };

@@ -1,0 +1,40 @@
+1. CRUD 
+
+2 . HTML page
+
+-------------------
+
+1. Learning Joins > 3 Points >
+
+2. CRUD with Joins 
+
+3. HTML + CSS () + Image (Load 1 Image) 
+
+4. Multiple HTML > Load them in Home (AbouUS, Contact/Adress)
+
+--------------------
+
+1. Setup JDK and IntelliJ
+2. Learn > Class creation,Object Creation and Access the fields,Comments,Packages
+3. Start Learning - Functions and Procedures & triggers, Sequence
+
+--------------------
+
+1. Comeup with The difference between abstract class and Interface -- 99% --- 5 ponits
+
+--------------------
+
+1. Understanding GIT
+2. Understanding Repository
+3. What is Maven?
+4. What is SVN ?
+5. git commands
+
+	1. git clone
+	2. Import to IDE(Intellij)
+	3. <<making the code changes in our local>>
+	4. git add . (Will add all the files to repository) or git add <<filename>>
+	5. git commit -m "<<Comments on what changes you have done>>"
+	6. git push
+
+ 6. Complete all the ingeritence examples

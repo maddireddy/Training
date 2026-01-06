@@ -1,0 +1,6 @@
+Records are implicitly final, meaning they cannot be extended or declared as abstract.
+
+// These won't compile:
+abstract record Payment(String id) { }
+final record LimitedPerson extends Person(String name, int age) { }
+The examples demonstrate that declaring an abstract record (Payment) or trying to extend a normal class (LimitedPerson) with a record will not compile.

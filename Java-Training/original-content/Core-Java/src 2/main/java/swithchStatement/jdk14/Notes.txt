@@ -1,0 +1,5 @@
+What ever switch statement & features we discussed so far in java 12 and 13 those
+are preview features to access that The flag –enable-preview need to set true .
+
+But Java 14 just made all the features permanent from being a preview feature
+The flag –enable-preview need not be set starting java 14. & switch statements have evolved into switch expressions!

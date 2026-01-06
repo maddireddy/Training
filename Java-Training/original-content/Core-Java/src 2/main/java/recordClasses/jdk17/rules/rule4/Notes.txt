@@ -1,0 +1,11 @@
+Records cannot have instance fields or instance initializers beyond the component fields defined in the record header.
+
+public record Point(int x, int y) {
+    private double distanceFromOrigin; // Won't compile
+
+    {
+        // Instance initializer won't compile
+        distanceFromOrigin = calculateDistance();
+    }
+}
+The example Point record illustrates that declaring an instance field (distanceFromOrigin) or an instance initializer block will not compile.

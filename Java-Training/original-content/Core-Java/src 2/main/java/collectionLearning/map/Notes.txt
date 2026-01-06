@@ -1,0 +1,45 @@
+A Map object maps keys to values.
+Every key in a Map must be unique and a key cannot map to more than one value.
+
+Create a new Map instance by specifying Map<String, Integer>.
+Remember that a Map is a collection of key,pair values.
+<String, Integer> indicates the data type associated with the keys/values.
+
+Notice how the put() adds a new key/value pair to the map.
+While remove() deletes a key/value pair for the specified key,
+containsKey() returns true/false based on the specified key's presence.
+
+-------------
+
+Map Implementations
+
+There are 3 general-purpose Map implementations that you will commonly see.
+These are similar to the Set implementations (HashSet, TreeSet, LinkedHashSet)
+and have similar appropriate use cases, etc.
+
+1) HashMap
+
+The HashMap is among the most commonly used Map implementations.
+Like a HashSet, it's the most efficient but does not guarantee order.
+
+2) TreeMap
+
+Like TreeSet, the TreeMap sorts its entries in ascending order based on the key values.
+Use a TreeMap when you want elements stored in a sorted order based on key values.
+
+3) LinkedHashMap
+
+The LinkedHashMap is less efficient than HashMap but maintains insertion order
+(similar to LinkedHashSet).
+
+The LinkedHashMap has some extra functionality, including ordering elements based on access
+rather than insertion. Looking up a key moves that key/value pair to the end of the map.
+
+LinkedHashMap also uses a removeEldestEntry() method which can be perfect for implementing
+a cache etc.
+
+Other Map Implementations
+
+There are other special-purpose Map implementations such as EnumMap, WeakHashMap,
+and IdentityHashMap. Be sure to check out the original documentation for more specifics
+on these implementations.

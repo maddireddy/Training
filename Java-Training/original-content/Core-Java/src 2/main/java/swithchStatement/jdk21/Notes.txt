@@ -1,0 +1,6 @@
+Java 21LTS is the latest long-term support release for the Java SE platform and it was released on September 15, 2021.
+
+Switch expression features
+1. Pattern matching
+2. Guarded pattern
+3. Null cases

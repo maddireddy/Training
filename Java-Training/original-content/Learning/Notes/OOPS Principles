@@ -1,0 +1,34 @@
+OOPS Principles
+
+Class - class
+
+	1. Packagename - Non-mandatory
+
+	package <packagename>;
+
+	Java Provides Default packages for our development pupose
+
+	Explicit packages - How will we include in our java class
+
+	import <package name>;
+
+	class <ClassName>
+	{
+	main() - TO run my class
+	{
+	sout
+	}
+	}
+
+	Comments: Generic description of everything for understanding
+
+	//
+	/* <<comment>> */
+
+Object - new/Constructor of the above created class
+DataAbstraction - abstract, extends and interface,implements
+Data Encapsulation - default,public,private,protected and getter/setter
+Inheritence - extends/implements,super and this
+Polymorphism - overloading/overriding
+Databinding - static binding(early bidning- static) and dynamic binding(runtime binding)
+MessagePassing - Objects(With in a program) and Processes(Thread - Later)

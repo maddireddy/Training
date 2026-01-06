@@ -1,0 +1,8 @@
+A record and the components in its header might be decorated with annotations, such as the following:
+
+public record Transaction(
+    @NotNull String id,
+    @Positive double amount) {
+    // ...
+}
+The Transaction record example shows annotating the id and amount fields with @NotNull and @Positive annotations, respectively.

@@ -1,0 +1,15 @@
+Sealed classes and interfaces restrict which other classes or interfaces may extend or implement them.
+
+Introduced in JDK17
+
+One of the primary purposes of inheritance is code reuse: When you want to create a new class and there is already
+a class that includes some of the code that you want, you can derive your new class from the existing class. In doing this,
+you can reuse the fields and methods of the existing class without having to write (and debug) them yourself.
+
+However, what if you want to model the various possibilities that exist in a domain by defining its entities and
+determining how these entities should relate to each other? For example, you're working on a graphics library.
+You want to determine how your library should handle common geometric primitives like circles and squares.
+You've created a Shape class that these geometric primitives can extend. However, you're not interested in
+allowing any arbitrary class to extend Shape; you don't want clients of your library declaring any further primitives.
+By sealing a class, you can specify which classes are permitted to extend it and prevent any other arbitrary
+class from doing so.

@@ -1,0 +1,48 @@
+A set is a collection that doesn’t allow duplicate entries. A set has the same methods as the collection interface.
+It can contain at least one 1 null element.
+The set implementations are HashSet, LinkedHashSet and TreeSet.
+Element in HashSet, LinkedHashSet are not sorted but TreeSet is sorted.
+
+HashSet
+---------
+HashSet is an abstract implementation of Set interface. It creates a collection that uses a hash table for storing the elements.
+A HashTable uses hashing mechanism to store the objects. Hashing means, a key is used to determine a unique value, called its hash code. Every hash code represents a data associated with key.
+
+LinkedHashSet
+-----------
+
+LinkedHashSet maintains a linked list of the entries in the set.
+The elements are stored in the order in which they were inserted.
+While retrieving the LinkedHashSet elements using an Iterator, the elements will be returned in the order in which they were inserted.
+
+----------------------------------
+
+HashSet:
+
+Internal Working: HashSet internally uses a hash table (implemented as a HashMap) for storing objects.
+Order: It does not maintain insertion order.
+Complexity of Operations:
+Insertion, removal, and retrieval: O(1).
+Performance: Better than LinkedHashSet and TreeSet.
+Null Elements: Allows only one null value.
+When to Use: If you want to store unique objects without maintaining insertion order.
+
+LinkedHashSet:
+
+Internal Working: LinkedHashSet uses a hash table (implemented as a LinkedHashMap) to store objects.
+Order: Maintains the insertion order of elements.
+Complexity of Operations:
+Insertion, removal, and retrieval: O(1).
+Performance: Slower than TreeSet due to maintaining insertion order.
+Null Elements: Allows only one null value.
+When to Use: When you need both uniqueness and insertion order.
+
+TreeSet:
+
+Internal Working: TreeSet uses a tree structure (implemented as a TreeMap) to store objects.
+Order: Orders elements according to a Comparator (natural ascending order by default).
+Complexity of Operations:
+Insertion, removal, and retrieval: O(log n).
+Performance: Better than LinkedHashSet except for insertion/removal.
+Null Elements: Does not permit null values.
+When to Use: When you need a sorted set based on a Comparator.

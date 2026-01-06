@@ -1,0 +1,19 @@
+2024-07-04 14:20:22,395  INFO  [loggerLearning.LoggerLearning] Inside Main
+2024-07-04 14:20:22,399  ERROR [loggerLearning.LoggerLearning] Exception while reading the file
+java.io.FileNotFoundException: Presentation on java preety1.pptx (No such file or directory)
+	at java.base/java.io.FileInputStream.open0(Native Method)
+	at java.base/java.io.FileInputStream.open(FileInputStream.java:216)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:157)
+	at loggerLearning.LoggerLearning.readFromFile(LoggerLearning.java:33)
+	at loggerLearning.LoggerLearning.main(LoggerLearning.java:21)
+2024-07-04 14:21:48,964  INFO  [loggerLearning.LoggerLearning] Inside Main
+2024-07-04 14:21:48,967  ERROR [loggerLearning.LoggerLearning] Exception while reading the file
+java.io.FileNotFoundException: Presentation on java preety1.pptx (No such file or directory)
+	at java.base/java.io.FileInputStream.open0(Native Method)
+	at java.base/java.io.FileInputStream.open(FileInputStream.java:216)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:157)
+	at loggerLearning.LoggerLearning.readFromFile(LoggerLearning.java:33)
+	at loggerLearning.LoggerLearning.main(LoggerLearning.java:21)
+2024-07-15 15:34:34,819  INFO  [ioPackage.FileOperations] File is already exist
+2024-07-15 15:34:34,822  INFO  [ioPackage.FileOperations] File rename successful
+2024-07-15 15:34:34,822  INFO  [ioPackage.FileOperations] File is failed to move!

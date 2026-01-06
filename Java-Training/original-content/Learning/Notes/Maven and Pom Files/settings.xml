@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd">
+   <profiles>
+      <profile>
+         <pluginRepositories>
+            <pluginRepository>
+               <id>central</id>
+               <name>plugins-release</name>
+               <url>http://repo1.maven.org/maven2/</url>
+            </pluginRepository>
+            <pluginRepository>
+               <snapshots />
+               <id>snapshots</id>
+               <name>plugins-snapshot</name>
+               <url>http://repo1.maven.org/maven2/</url>
+            </pluginRepository>
+         </pluginRepositories>
+         <id>artifactory</id>
+      </profile>
+   </profiles>
+   <activeProfiles>
+      <activeProfile>artifactory</activeProfile>
+   </activeProfiles>
+<mirrors>
+  <mirror>
+    <id>internal-repository</id>
+    <name>Maven Repository Manager running on https://repo1.maven.org/maven2</name>
+    <url>https://repo1.maven.org/maven2</url>
+    <mirrorOf>central</mirrorOf>
+  </mirror>
+</mirrors>
+</settings>
