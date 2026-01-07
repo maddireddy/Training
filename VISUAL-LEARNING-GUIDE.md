@@ -9,7 +9,7 @@
 
 ```
 ╔═══════════════════════════════════════════════════════════════════════╗
-║         JAVA FULL STACK DEVELOPER - 12 WEEK JOURNEY                   ║
+║         JAVA FULL STACK DEVELOPER - 13 WEEK JOURNEY                   ║
 ╠═══════════════════════════════════════════════════════════════════════╣
 ║                                                                        ║
 ║  WEEK 01 [✓] Java Fundamentals                                       ║
@@ -29,8 +29,16 @@
 ║   └─ File I/O (5 examples + stream hierarchies)                       ║
 ║   📚 [See WEEK-03-VISUAL-GUIDE.md]                                    ║
 ║                                                                        ║
-║  WEEK 04-12 [  ] Coming Soon                                          ║
+║  WEEK 04-12 [  ] Java Stack & Full Stack Development                 ║
 ║   └─ Spring Boot, Microservices, React, DevOps                        ║
+║                                                                        ║
+║  WEEK 13 [✓] AI/ML/LLM Fundamentals ⭐ VISUAL GUIDE AVAILABLE        ║
+║   ├─ Machine Learning Basics (5 algorithms + diagrams)                ║
+║   ├─ Deep Learning (6 neural network architectures)                   ║
+║   ├─ NLP Basics (2 implementations + preprocessing)                   ║
+║   ├─ LLM Architecture (Transformers, GPT + attention viz)             ║
+║   └─ Capstone: Complete Sentiment Analysis Pipeline                   ║
+║   📚 [See Week-13-AI-ML-LLM/WEEK-13-VISUAL-GUIDE.md]                 ║
 ║                                                                        ║
 ╚═══════════════════════════════════════════════════════════════════════╝
 ```
@@ -106,10 +114,18 @@ This repository includes **HeadFirst Java-style** visual documentation:
    - Serialization process
    - Old I/O vs NIO
 
+6. **[Week-13 Day-91: ML Basics](Week-13-AI-ML-LLM/Day-91-ML-Basics/README.md)** 🆕
+   - ML taxonomy visualization
+   - Linear regression explained
+   - Logistic regression sigmoid
+   - Decision tree flowcharts
+   - Random forest ensemble
+
 ### Week-Level Guides (Overview)
 
 - **[Week-02 Visual Guide](Week-02-OOP/WEEK-02-VISUAL-GUIDE.md)** - OOP & Collections
 - **[Week-03 Visual Guide](Week-03-Advanced-Java/WEEK-03-VISUAL-GUIDE.md)** - Advanced Java
+- **[Week-13 Visual Guide](Week-13-AI-ML-LLM/WEEK-13-VISUAL-GUIDE.md)** - AI/ML/LLM Fundamentals 🆕
 
 ---
 
@@ -120,17 +136,20 @@ This repository includes **HeadFirst Java-style** visual documentation:
 ║              TRAINING REPOSITORY STATS                    ║
 ╠══════════════════════════════════════════════════════════╣
 ║                                                          ║
-║  📁 Total Examples:        67                           ║
-║  📚 Visual Guides:         7                            ║
-║  🎨 Mermaid Diagrams:      15+                          ║
-║  📊 ASCII Art Diagrams:    25+                          ║
-║  📦 Sub-packages:          30+                          ║
-║  📝 Lines of Code:         8000+                        ║
+║  📁 Total Examples:        82+                          ║
+║  📚 Visual Guides:         9                            ║
+║  🎨 Mermaid Diagrams:      20+                          ║
+║  📊 ASCII Art Diagrams:    40+                          ║
+║  📦 Sub-packages:          40+                          ║
+║  📝 Lines of Code:         11,500+                      ║
 ║  ⚡ Code Examples:         Production-ready             ║
 ║                                                          ║
-║  Weeks Covered:            2/12 (with visual docs)      ║
-║  Days with Examples:       5 days (fully documented)    ║
-║  Completion:               17% with visuals             ║
+║  Technologies:             Java + Python                ║
+║  Weeks Covered:            3/13 (with visual docs)      ║
+║  Days with Examples:       6 days (fully documented)    ║
+║  Completion:               23% with visuals             ║
+║                                                          ║
+║  🆕 NEW: Week 13 - AI/ML/LLM (15+ examples)            ║
 ║                                                          ║
 ╚══════════════════════════════════════════════════════════╝
 ```
